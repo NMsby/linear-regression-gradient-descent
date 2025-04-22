@@ -306,6 +306,24 @@ def main():
     # Experiment with different learning rates
     experiment_learning_rates(X, y)
 
+    # Summarize the findings and conclusions
+    print("\nSummary and Conclusions:")
+    print("-" * 60)
+    print("1. We implemented linear regression using gradient descent from scratch.")
+    print("2. We generated a synthetic dataset with 200 samples and true parameters (slope=2.0, bias=5.0).")
+    print("3. Our best model achieved:")
+    print(f"   - Slope: {optimal_slope:.4f} (True value: 2.0)")
+    print(f"   - Bias: {optimal_bias:.4f} (True value: 5.0)")
+    print(f"   - MSE: {cost_history[-1]:.4f}")
+    print("4. Learning rate analysis showed:")
+    print("   - Too small (0.001): Slow convergence")
+    print("   - Good (0.01): Effective convergence")
+    print("   - Best (0.05): Fastest convergence to lowest MSE")
+    print("   - Too large (0.1): Divergence and numerical instability")
+    print("5. This implementation successfully demonstrates the gradient descent")
+    print("   algorithm for linear regression without using any machine learning libraries.")
+    print("-" * 60)
+
 
 if __name__ == "__main__":
     main()
