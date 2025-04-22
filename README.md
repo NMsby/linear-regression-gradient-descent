@@ -2,6 +2,9 @@
 
 This repository contains an implementation of linear regression using gradient descent for a university Machine Learning course assignment.
 
+![Python](https://img.shields.io/badge/python-3.10+-blue.svg)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
+
 ## Project Overview
 
 This implementation focuses on developing a linear regression model from scratch using the gradient descent optimization technique. The primary goal is to understand the fundamentals of linear regression and gradient descent algorithms without relying on machine learning libraries.
@@ -49,7 +52,7 @@ Learning rate analysis demonstrated that:
 
 ## File Structure
 
-- `linear_regression_gd.ipynb`: Jupyter notebook with the complete implementation
+- `linear_regression_gradient_descent.ipynb`: Jupyter notebook with the complete implementation
 - `linear_regression_gd.py`: Python script version of the implementation
 - `README.md`: This documentation
 - `requirements.txt`: Project dependencies
@@ -82,8 +85,3 @@ To run the Python script:
 ## License
 
 [MIT License](LICENSE)
-
-## Author
-
-[Nelson Masbayi](https://github.com/NMsby) - April 2025
-```
