@@ -167,6 +167,49 @@ def gradient_descent(X, y, learning_rate=0.01, n_iterations=1000):
     return slope, bias, cost_history, slope_history, bias_history
 
 
+def experiment_learning_rates(X, y, learning_rates=[0.001, 0.01, 0.05, 0.1]):
+    """
+    Experiment with different learning rates and compare the results.
+
+    Parameters:
+    -----------
+    X : ndarray of shape (n_samples,)
+        Input features
+    y : ndarray of shape (n_samples,)
+        Target values
+    learning_rates : list
+        List of learning rates to try
+    """
+    plt.figure(figsize=(15, 10))
+
+    results = []
+
+    for i, lr in enumerate(learning_rates):
+        # Run gradient descent with current learning rate
+        slope, bias, cost_history, _, _ = gradient_descent(X, y, learning_rate=lr, n_iterations=1000)
+        results.append((lr, slope, bias, cost_history[-1]))
+
+        # Plot cost history
+        plt.subplot(2, 2, i + 1)
+        plt.plot(cost_history)
+        plt.title(f'Learning Rate: {lr}')
+        plt.xlabel('Iteration')
+        plt.ylabel('Mean Squared Error')
+        plt.grid(True, alpha=0.3)
+
+    plt.tight_layout()
+    plt.show()
+
+    # Compare final results
+    print("\nComparison of Learning Rates:")
+    print("-" * 60)
+    print(f"{'Learning Rate':^15}{'Slope':^15}{'Bias':^15}{'Final MSE':^15}")
+    print("-" * 60)
+    for lr, slope, bias, mse in results:
+        print(f"{lr:^15.4f}{slope:^15.4f}{bias:^15.4f}{mse:^15.4f}")
+    print("-" * 60)
+
+
 def main():
     """Main function to run the linear regression implementation."""
     # Generate the dataset
