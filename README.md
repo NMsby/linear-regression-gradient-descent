@@ -84,4 +84,4 @@ To run the Python script:
 
 ## License
 
-[MIT License](LICENSE)
+This project is licensed under the MIT license - see the [LICENSE](LICENSE) file for details.
