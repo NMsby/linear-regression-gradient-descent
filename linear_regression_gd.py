@@ -210,6 +210,82 @@ def experiment_learning_rates(X, y, learning_rates=[0.001, 0.01, 0.05, 0.1]):
     print("-" * 60)
 
 
+def visualize_results(X, y, slope, bias, cost_history, slope_history, bias_history):
+    """
+    Visualize the results of gradient descent.
+
+    Parameters:
+    -----------
+    X : ndarray of shape (n_samples,)
+        Input features
+    y : ndarray of shape (n_samples,)
+        Target values
+    slope : float
+        Optimal slope value
+    bias : float
+        Optimal bias value
+    cost_history : list
+        History of cost values
+    slope_history : list
+        History of slope values
+    bias_history : list
+        History of bias values
+    """
+    # Visualize the cost function convergence
+    plt.figure(figsize=(15, 4))
+
+    # Plot cost history
+    plt.subplot(1, 3, 1)
+    plt.plot(cost_history)
+    plt.title('Cost Function Convergence')
+    plt.xlabel('Iteration')
+    plt.ylabel('Mean Squared Error')
+    plt.grid(True, alpha=0.3)
+
+    # Plot slope history
+    plt.subplot(1, 3, 2)
+    plt.plot(slope_history)
+    plt.title('Slope Convergence')
+    plt.xlabel('Iteration')
+    plt.ylabel('Slope Value')
+    plt.axhline(y=2, color='r', linestyle='--', alpha=0.5, label='True Slope = 2.0')
+    plt.legend()
+    plt.grid(True, alpha=0.3)
+
+    # Plot bias history
+    plt.subplot(1, 3, 3)
+    plt.plot(bias_history)
+    plt.title('Bias Convergence')
+    plt.xlabel('Iteration')
+    plt.ylabel('Bias Value')
+    plt.axhline(y=5, color='r', linestyle='--', alpha=0.5, label='True Bias = 5.0')
+    plt.legend()
+    plt.grid(True, alpha=0.3)
+
+    plt.tight_layout()
+    plt.show()
+
+    # Visualize the final regression line
+    plt.figure(figsize=(10, 6))
+    plt.scatter(X, y, alpha=0.5, label='Data Points')
+
+    # Generate points for the regression line
+    x_line = np.array([min(X), max(X)])
+    y_line = bias + slope * x_line
+    plt.plot(x_line, y_line, 'r-', linewidth=2, label=f'Regression Line: y = {bias:.4f} + {slope:.4f}x')
+
+    # Plot the true line used to generate the data
+    y_true = 5 + 2 * x_line
+    plt.plot(x_line, y_true, 'g--', linewidth=2, label='True Line: y = 5 + 2x')
+
+    plt.title('Linear Regression Result')
+    plt.xlabel('X')
+    plt.ylabel('y')
+    plt.legend()
+    plt.grid(True, alpha=0.3)
+    plt.show()
+
+
 def main():
     """Main function to run the linear regression implementation."""
     # Generate the dataset
@@ -223,6 +299,12 @@ def main():
     plt.ylabel('y')
     plt.grid(True, alpha=0.3)
     plt.show()
+
+    # Visualize the results
+    visualize_results(X, y, optimal_slope, optimal_bias, cost_history, slope_history, bias_history)
+
+    # Experiment with different learning rates
+    experiment_learning_rates(X, y)
 
 
 if __name__ == "__main__":
