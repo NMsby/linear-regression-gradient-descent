@@ -40,6 +40,133 @@ def generate_dataset(n_samples=200, noise_level=10):
     return x, y
 
 
+def compute_cost(X, y, slope, bias):
+    """
+    Compute the Mean Squared Error cost function.
+
+    Parameters:
+    -----------
+    X: ndarray of shape (n_samples,)
+        Input features
+    y : ndarray of shape (n_samples,)
+        Target values
+    slope : float
+        Current slope value
+    bias : float
+        Current bias value
+
+    Returns:
+    --------
+    cost : float
+        Mean Squared Error
+    """
+    n_samples = len(X)
+
+    # Predictions using current parameters
+    y_pred = bias + slope * X
+
+    # Calculate MSE
+    cost = np.sum((y_pred - y) ** 2) / (2 * n_samples)
+
+    return cost
+
+
+def compute_gradients(X, y, slope, bias):
+    """
+    Compute gradients of the cost function with respect to slope and bias.
+
+    Parameters:
+    -----------
+    X : ndarray of shape (n_samples,)
+        Input features
+    y : ndarray of shape (n_samples,)
+        Target values
+    slope : float
+        Current slope value
+    bias : float
+        Current bias value
+
+    Returns:
+    --------
+    d_slope : float
+        Gradient with respect to slope
+    d_bias : float
+        Gradient with respect to bias
+    """
+    n_samples = len(X)
+
+    # Predictions using current parameters
+    y_pred = bias + slope * X
+
+    # Calculate gradients
+    d_slope = np.sum((y_pred - y) * X) / n_samples
+    d_bias = np.sum(y_pred - y) / n_samples
+
+    return d_slope, d_bias
+
+
+def gradient_descent(X, y, learning_rate=0.01, n_iterations=1000):
+    """
+    Implement gradient descent to find optimal slope and bias.
+
+    Parameters:
+    -----------
+    X : ndarray of shape (n_samples,)
+        Input features
+    y : ndarray of shape (n_samples,)
+        Target values
+    learning_rate : float
+        Step size for gradient descent updates
+    n_iterations : int
+        Number of iterations to run
+
+    Returns:
+    --------
+    slope : float
+        Optimal slope value
+    bias : float
+        Optimal bias value
+    cost_history : list
+        History of cost values during optimization
+    slope_history : list
+        History of slope values during optimization
+    bias_history : list
+        History of bias values during optimization
+    """
+    # Initialize parameters
+    slope = 0.0
+    bias = 0.0
+
+    # Initialize lists to store values during optimization
+    cost_history = []
+    slope_history = []
+    bias_history = []
+
+    # Gradient descent iterations
+    for i in range(n_iterations):
+        # Compute current cost
+        current_cost = compute_cost(X, y, slope, bias)
+        cost_history.append(current_cost)
+        slope_history.append(slope)
+        bias_history.append(bias)
+
+        # Compute gradients
+        d_slope, d_bias = compute_gradients(X, y, slope, bias)
+
+        # Update parameters
+        slope = slope - learning_rate * d_slope
+        bias = bias - learning_rate * d_bias
+
+        # Optional: Print progress every 100 iterations
+        if (i + 1) % 100 == 0:
+            print(f"Iteration {i + 1}/{n_iterations}, Cost: {current_cost:.4f}, Slope: {slope:.4f}, Bias: {bias:.4f}")
+
+    # Compute final cost
+    final_cost = compute_cost(X, y, slope, bias)
+
+    return slope, bias, cost_history, slope_history, bias_history
+
+
 def main():
     """Main function to run the linear regression implementation."""
     # Generate the dataset
